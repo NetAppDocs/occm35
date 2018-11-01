@@ -1,0 +1,41 @@
+---
+sidebar: sidebar
+permalink: concept_security.html
+keywords: security, encryption, antivirus, concepts, key managers, safenet, kms, keys, vscan, encrypt, aws, key management service, cmk, customer master key, data at rest, data-at-rest, netapp storage encryption, certificate signing request, csr, certificate, ca certificate, virus, scan, virus scan, certificate authority
+summary: Cloud Volumes ONTAP supports data encryption and provides protection against viruses.
+---
+
+= Security
+:toc: macro
+:hardbreaks:
+:nofooter:
+:icons: font
+:linkattrs:
+:imagesdir: ./media/
+
+[.lead]
+Cloud Volumes ONTAP supports data encryption and provides protection against viruses.
+
+toc::[]
+
+== Data encryption in Azure
+
+https://azure.microsoft.com/en-us/documentation/articles/storage-service-encryption/[Azure Storage Service Encryption^] for data at rest is enabled by default for Cloud Volumes ONTAP data in Azure.
+
+NOTE: Customer-managed keys are not supported with Cloud Volumes ONTAP.
+
+== Data encryption in AWS
+
+Data encryption is supported in AWS using the http://docs.aws.amazon.com/kms/latest/developerguide/overview.html[AWS Key Management Service (KMS)^]. Cloud Manager requests data keys using a customer master key (CMK).
+
+If you want to use this encryption option, then you must ensure that the AWS KMS is set up appropriately. For details, see link:task_setting_up_cloud_manager.html#setting-up-the-aws-kms[Setting up the AWS KMS].
+
+== ONTAP virus scanning
+
+You can use integrated antivirus functionality on ONTAP systems to protect data from being compromised by viruses or other malicious code.
+
+ONTAP virus scanning, called _Vscan_, combines best-in-class third-party antivirus software with ONTAP features that give you the flexibility you need to control which files get scanned and when.
+
+For information about the vendors, software, and versions supported by Vscan, see the http://mysupport.netapp.com/matrix[NetApp Interoperability Matrix^].
+
+For information about how to configure and manage the antivirus functionality on ONTAP systems, see the http://docs.netapp.com/ontap-9/topic/com.netapp.doc.dot-cm-acg/home.html[ONTAP 9 Antivirus Configuration Guide^].

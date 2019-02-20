@@ -3,13 +3,13 @@
 <rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
   <channel>
     <title>occm35 | NetApp Cloud Docs</title>
-    <description>The latest updates from NetApp Cloud Docs</description>
-    <link>https://docs.netapp.com/occm35</link>
-    <language>zz</language>
-    <ttl>60</ttl>
     <atom:link href="https://docs.netapp.com/occm35/feed.xml" rel="self" type="application/rss+xml"/>
-    <pubDate>Thu, 21 Mar 2019 17:15:08 +0000</pubDate>
-    <lastBuildDate>Thu, 21 Mar 2019 17:15:08 +0000</lastBuildDate>
+    <link>https://docs.netapp.com/occm35</link>
+    <description>The latest updates from NetApp Cloud Docs</description>
+    <language>en-us</language>
+    <ttl>60</ttl>
+    <pubDate>Mon, 05 Aug 2019 18:46:27 +0000</pubDate>
+    <lastBuildDate>Mon, 05 Aug 2019 18:46:27 +0000</lastBuildDate>
     
   </channel>
 </rss>

@@ -23,7 +23,7 @@ toc::[]
 
 Cloud Volumes ONTAP uses AWS and Azure volumes as back-end storage. It sees these volumes as disks and groups them into one or more aggregates. Aggregates provide storage to one or more volumes.
 
-image:diagram_storage.png[This illustration shows an aggregate that is comprised of EBS disks, and the data volumes that Cloud Volumes ONTAP makes available to hosts.]
+image:diagram_storage.png["This illustration shows an aggregate that is comprised of EBS disks, and the data volumes that Cloud Volumes ONTAP makes available to hosts."]
 
 In AWS, an aggregate can contain up to 6 disks, with a maximum disk size of 16 TB. The underlying EBS disk type can be either General Purpose SSD, Provisioned IOPS SSD, Throughput Optimized HDD, or Cold HDD. You can also pair an EBS disk with Amazon S3 for <<Data tiering,data tiering>> (not supported with Cold HDDs).
 

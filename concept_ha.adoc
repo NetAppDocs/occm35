@@ -147,4 +147,4 @@ image:screenshot_mount.gif[Screen shot: Shows the Mount Command which is availab
 
 The following image shows the Volume View:
 
-image:screenshot_mount_volume_view.gif[Screen shot: Shows the menu options for a volume, which includes the Mount option.]
+image:screenshot_mount_volume_view.gif["Screen shot: Shows the menu options for a volume, which includes the Mount option."]

@@ -29,7 +29,7 @@ Cloud Manager software is required to deploy and manage Cloud Volumes ONTAP. You
 
 How you deploy Cloud Manager depends on which location you choose:
 
-image:diagram_install.png[A workflow diagram that shows how to install Cloud Manager depending on the location: For AWS, NetApp Cloud Central. For Azure, NetApp Cloud Central unless you are deploying in the Azure Gov region or Azure Germany region. In those regions, you must download and install the software on Linux host. The same is true for IBM Cloud and your own network.]
+image:diagram_install.png["A workflow diagram that shows how to install Cloud Manager depending on the location: For AWS, NetApp Cloud Central. For Azure, NetApp Cloud Central unless you are deploying in the Azure Gov region or Azure Germany region. In those regions, you must download and install the software on Linux host. The same is true for IBM Cloud and your own network."]
 
 Refer to the following for deploying Cloud Manager from NetApp Cloud Central:
 

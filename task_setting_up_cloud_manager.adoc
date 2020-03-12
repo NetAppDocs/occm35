@@ -63,7 +63,7 @@ When Cloud Manager is associated with an IAM role, it deploys Cloud Volumes ONTA
 
 The following image depicts the steps that you must complete below.
 
-image:diagram_aws_accounts.png[A conceptual graphic that shows a new IAM role that gains permissions from an IAM policy and has a trust relationship with the IAM role attached to the Cloud Manager instance. That IAM role gains permissions from an IAM policy as well. Finally, it shows a screenshot of the page in Cloud Manager where you enter the AWS Account ID and IAM role name.]
+image:diagram_aws_accounts.png["A conceptual graphic that shows a new IAM role that gains permissions from an IAM policy and has a trust relationship with the IAM role attached to the Cloud Manager instance. That IAM role gains permissions from an IAM policy as well. Finally, it shows a screenshot of the page in Cloud Manager where you enter the AWS Account ID and IAM role name."]
 
 .Steps
 

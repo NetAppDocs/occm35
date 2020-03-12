@@ -77,7 +77,7 @@ NOTE: One floating IP address is for cluster management, one is for NFS/CIFS dat
 +
 The following example shows the relationship between floating IP addresses and the VPCs in an AWS region. While the floating IP addresses are outside the CIDR blocks for all VPCs, they are routable to subnets through route tables.
 +
-image:diagram_ha_floating_ips.png[Conceptual image showing the CIDR blocks for five VPCs in an AWS region and three floating IP addresses that are outside the CIDR blocks of the VPCs.]
+image:diagram_ha_floating_ips.png["Conceptual image showing the CIDR blocks for five VPCs in an AWS region and three floating IP addresses that are outside the CIDR blocks of the VPCs."]
 +
 You must manually enter the floating IP addresses in Cloud Manager when you create a Cloud Volumes ONTAP HA working environment. Cloud Manager allocates the IP addresses to the HA pair when it launches the system.
 +
@@ -102,7 +102,7 @@ When deployed in multiple AZs, Cloud Volumes ONTAP HA configurations use a float
 
 The following image shows an optimal HA configuration in AWS operating as an active-passive configuration:
 
-image:diagram_ha_networking.png[Conceptual image showing components in a Cloud Volumes ONTAP HA architecture: two Cloud Volumes ONTAP nodes and a mediator instance, each in separate availability zones.]
+image:diagram_ha_networking.png["Conceptual image showing components in a Cloud Volumes ONTAP HA architecture: two Cloud Volumes ONTAP nodes and a mediator instance, each in separate availability zones."]
 
 == Sample VPC configurations
 
@@ -122,7 +122,7 @@ For more details about this scenario, refer to http://docs.aws.amazon.com/Amazon
 
 The following graphic shows Cloud Manager running in a public subnet and single node systems running in a private subnet:
 
-image:diagram_vpc_public_and_private.png[This illustration shows Cloud Manager and a NAT instance running in a public subnet, and Cloud Volumes ONTAP instances and a NetApp Support instance running in a private subnet.]
+image:diagram_vpc_public_and_private.png["This illustration shows Cloud Manager and a NAT instance running in a public subnet, and Cloud Volumes ONTAP instances and a NetApp Support instance running in a private subnet."]
 
 === A VPC with a private subnet and a VPN connection to your network
 
@@ -136,4 +136,4 @@ For more details about this scenario, refer to http://docs.aws.amazon.com/Amazon
 
 The following graphic shows Cloud Manager running in your data center and single node systems running in a private subnet:
 
-image:diagram_vpc_private.png[This illustration shows Cloud Manager running in a data center, and Cloud Volumes ONTAP instances and a NetApp Support instance running in a private subnet. There is a VPN connection between the data center and Amazon Web Services.]
+image:diagram_vpc_private.png["This illustration shows Cloud Manager running in a data center, and Cloud Volumes ONTAP instances and a NetApp Support instance running in a private subnet. There is a VPN connection between the data center and Amazon Web Services."]

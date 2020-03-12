@@ -102,13 +102,13 @@ Cloud Manager represents storage systems as _working environments_. A working en
 
 The following image shows a Cloud Volumes ONTAP working environment:
 
-image:screenshot_working_env.gif[Screen shot: a Cloud Volumes ONTAP working environment, which shows Cloud Volumes ONTAP storage.]
+image:screenshot_working_env.gif["Screen shot: a Cloud Volumes ONTAP working environment, which shows Cloud Volumes ONTAP storage."]
 
 === Tenants
 
 A _tenant_ isolates working environments in groups. You create one or more working environments within a tenant. The following image shows three tenants defined in Cloud Manager:
 
-image:screenshot_tenants.gif[Screen shot: the Tenants page, which shows three defined tenants.]
+image:screenshot_tenants.gif["Screen shot: the Tenants page, which shows three defined tenants."]
 
 === User management of tenants and working environments
 
@@ -126,7 +126,7 @@ If your organization has departments that operate independently, it is best to h
 
 For example, you might create three tenants for three separate departments. You would then create a Tenant Admin for each tenant. Within each tenant would be one or more Working Environment Admins who manage working environments. The following image depicts this scenario:
 
-image:diagram_users_and_tenants.png[This illustration shows a Cloud Manager Admin, three Tenant Admins, and three tenants that include several working environments and the working environment admins who manage them.]
+image:diagram_users_and_tenants.png["This illustration shows a Cloud Manager Admin, three Tenant Admins, and three tenants that include several working environments and the working environment admins who manage them."]
 
 === Why you should link a tenant to your NetApp Support Site account
 

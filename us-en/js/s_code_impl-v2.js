@@ -182,7 +182,7 @@ $(document).ready(function() {
   });
 
   // Topic Link Click
-  $('article:first').on("click", "a", function() {
+  $('article:first, #toggleContainerPdf').on("click", "a", function() {
     var topicLink = this.href;
     if (topicLink == null || topicLink.indexOf("http") != 0) {
       var clickedLink = $( this ).attr("href");

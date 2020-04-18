@@ -1,6 +1,5 @@
 sudo: false
 dist: xenial
-group: deprecated-2017Q4 # To fix NPM timeout errors
 language: ruby
 rvm:
 - 2.4.3

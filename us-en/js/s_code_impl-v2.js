@@ -157,7 +157,7 @@ $(document).ready(function() {
   }
 
   if (isProductionUrl()) {
-    s_account = "networkapplsupport-global-dev";
+    s_account = "networkapplsupport-global";
   } else {
     s_account="networkapplsupport-global-dev";
   }

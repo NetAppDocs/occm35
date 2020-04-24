@@ -1,0 +1,2971 @@
+<!DOCTYPE html>
+<html lang="de">
+  <head class="at-element-marker">
+  <title>Storage-Management | NetApp Cloud Docs</title>
+  <meta charset="utf-8">
+  <meta http-equiv="x-ua-compatible" content="ie=edge,chrome=1" charset="utf-8">
+  <meta http-equiv="language" content="en" charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta property="og:title" content="Storage management | NetApp Cloud Docs" />
+	<meta property="og:type" content="website" />
+	<meta property="og:url" content="https://docs.netapp.com/occm35/de-de/concept_storage_management.html" />
+	<meta property="og:description" content="Cloud Manager makes storage provisioning easy by purchasing the AWS and Azure storage that you need to provision volumes for Cloud Volumes ONTAP." />
+  <meta property="og:image" content="https://docs.netapp.com/occm35/de-de/images/logo-tophat-social.png" />
+  <meta property="og:image:alt" content="NetApp Logo" />
+  <meta name="format-detection" content="telephone=no">
+  <meta charset="UTF-8">
+  <meta http-equiv="encoding" content="utf-8" charset="utf-8">
+  <meta http-equiv="nss-type" content="Product Documentation" charset="utf-8"/>
+  <meta http-equiv="nss-subtype" content="User Guide" charset="utf-8"/>
+  
+  <meta http-equiv="nss-product" content="OnCommand" charset="utf-8"/>
+  
+  <meta name="description" content="Cloud Manager makes storage provisioning easy by purchasing the AWS and Azure storage that you need to provision volumes for Cloud Volumes ONTAP.">
+  <meta name="keywords" content=" tenants, provisioning, volume view, working environments, capacity management, storage provisioning, netapp support site, manual, automatic, advanced allocation, aggregates, thin provisioning, free space, mode, tenants, isolate, isolation, cloud manager admin, admin, tenant admin, working environment admin, support registration, registration, volume view, register, paygo, license, upgrade"><!-- Icons --><link rel="icon" href="/occm35/de-de/images/favicon.ico" type="image/x-icon"><!-- RSS Feed --><link rel="alternate" type="application/rss+xml" title="NetApp Cloud-Dokumentation" href="/occm35/de-de/feed.xml"><!-- CSS Definitions: NetApp CSS should be defined after generic css --> <!-- Elastic Search --><link rel="stylesheet" href="//cdn.jsdelivr.net/searchkit/0.10.0/theme.css"><!-- Controls AsciiDoctor Admonition Blocks --><link rel="stylesheet" type="text/css" href="/occm35/de-de/css/font-awesome.min.css"><!-- Controls the shadow effect for search dropdown menu --><link rel="stylesheet" href="/occm35/de-de/css/boxshadowproperties.css"><!-- NetApp CSS controls the technical content --><link rel='stylesheet' href='/occm35/de-de/css/netapp.css' type='text/css'><!-- WWW CSS Content --><link rel="stylesheet" href="https://www.netapp.com/us/static/css/luci-dotcom.min.css?v10007269030243">
+  <link rel="stylesheet" href="https://www.netapp.com/us/static/css/netapp-dotcom.css?v10007269030243">
+  <link href="https://www.netapp.com/us/static/css/netapp-library-critical.min.css?v10007269030243" media="all" rel="stylesheet">
+  <link rel="stylesheet" href="https://www.netapp.com/us/static/css/netapp-library-non-critical.min.css?v10007269030243" as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <link rel="stylesheet" href="https://www.netapp.com/us/static/css/netapp-library-global-header-footer.min.css"><!-- NetApp IE Customizations --><link rel="stylesheet" href='/occm35/de-de/css/na-utility.css' type='text/css'>
+  <link rel="stylesheet" href='/occm35/de-de/css/na-sidebar.css' type='text/css'>
+  <link rel='stylesheet' href='/occm35/de-de/css/clouddocs.css' type='text/css'>
+  <link rel='stylesheet' href='/occm35/de-de/css/na-pagenav.css' type='text/css'>
+
+  
+
+  
+  <link rel='stylesheet' href='/occm35/de-de/css/na-feature.css' type='text/css'>
+  
+
+
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.1.4/jquery.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery-cookie/1.4.1/jquery.cookie.min.js"></script><!-- Used to import Promise for IE. Required for SearchKit --><script src="https://cdnjs.cloudflare.com/ajax/libs/bluebird/3.3.5/bluebird.min.js"></script>
+  
+    <script src='/occm35/de-de/js/na-search.js'></script>
+  
+
+  
+  <script src='/occm35/de-de/js/na-pagenav.js'></script>
+  
+
+  <link rel='stylesheet' href='/occm35/de-de/css/prism.css' type='text/css'>
+  <link rel='stylesheet' href='/occm35/de-de/css/prism-netapp.css' type='text/css'>
+
+
+<script src='/occm35/de-de/js/na-utility.js'></script>
+  <script src='/occm35/de-de/js/clouddocs.js'></script>
+  
+  <script src='/occm35/de-de/js/s_code_impl-v2.js'></script>
+  
+
+  <script src='/occm35/de-de/js/jquery.navgoco.min.js'></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <script src='/occm35/de-de/js/toc.js'></script>
+  <script src='/occm35/de-de/js/customscripts.js'></script>
+
+  <script>
+      $(document).ready(function() {
+          
+          var collapseOnInit = true;
+          
+
+          var navSettings = {
+              "caretHtml": '',
+              "accordion": collapseOnInit,
+              "openClass": 'active', // open
+              "save": false, // leave false or nav highlighting doesn't work right
+              "cookie": {
+                  "name": 'navgoco',
+                  "expires": false,
+                  "path": '/'
+              },
+              "slide": {
+                  "duration": 400,
+                  "easing": 'swing'
+              }
+          };
+
+          // Initialize navgoco with default options
+          $("#mysidebar").navgoco(navSettings);
+          
+
+          $("#collapseAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', false);
+          });
+
+          $("#expandAll").click(function(e) {
+              e.preventDefault();
+              $("#mysidebar").navgoco('toggle', true);
+          });
+
+      });
+
+  </script>
+  <script>
+      $(document).ready(function() {
+          $("#tg-sb-link").click(function() {
+              $("#tg-sb-sidebar").toggle();
+              $("#tg-sb-content").toggleClass('col-md-9');
+              $("#tg-sb-content").toggleClass('col-md-12');
+              $("#tg-sb-icon").toggleClass('fa-toggle-on');
+              $("#tg-sb-icon").toggleClass('fa-toggle-off');
+          });
+      });
+  </script><!-- Controls the i18n Browser Redirection --><script>
+    var siteLocales = [];
+    
+      siteLocales.push("us-en");
+    
+      siteLocales.push("ja-jp");
+    
+      siteLocales.push("de-de");
+    
+
+    standardizeUrl(siteLocales, "clouddocs.netapp.com", "https://docs.netapp.com");
+  </script>
+
+  <script async src="https://www.googletagmanager.com/gtag/js?id=UA-81697994-3"></script>
+  <script>
+  if (document.location.hostname === "docs.netapp.com") {
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'UA-81697994-3');
+  }
+  </script>
+</head>
+
+
+  <body class role="document">
+    <div id="page" class="n-off-canvas-menu">
+      <div class="n-off-canvas-menu__menu"><!--TODO: Add offcanvas code --></div>
+      <div class="n-off-canvas-menu__content-wrap">
+        <header class="site-header" id="banner"><!-- Start top_hat --><div class="n-top-hat">
+    <div class="n-container">
+      <div class="n-top-hat__cross-property-nav">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item"><a href="https://community.netapp.com/" class="n-top-hat__link">Community</a></li>
+          <li class="n-top-hat__list-item"><a href="https://blog.netapp.com/" class="n-top-hat__link">Blog</a></li>
+          <li class="n-top-hat__list-item"><a href="https://customers.netapp.com/en/" class="n-top-hat__link">Kundenreferenzen</a></li>
+          <li class="n-top-hat__list-item"><a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Kontakt</a></li>
+        </ul>
+      </div>
+      <div class="n-top-hat__utils">
+        <ul class="n-top-hat__list">
+          <li class="n-top-hat__list-item"><a href="https://www.netapp.com/us/contact-us/index.aspx" target="_self" class="n-top-hat__link" data-ntap-ui="contact-us">Kontakt</a></li>
+        </ul>
+      </div>
+    </div>
+  </div><!-- End top_hat --> <!-- Start property bar --><style> .n-property-navigation-bar__menus--desktop-experience .n-menu--mega__default-content__heading span { color: #34B0FF; } </style>
+  <div class="n-property-bar " data-ntap-ui="sticky-nav">
+    <div class="n-property-bar__inner-wrap">
+      <div class="n-property-bar__menu-toggle"><a href="#" class="n-property-bar__menu-toggle-link"> <span class="n-property-bar__menu-toggle-text">Men&uuml;</span><svg class="n-icon-bars n-property-bar__menu-toggle-icon" aria-labelledby="title">
+            <title>Balken</title>
+            <use xlink:href="/occm35/de-de/common/svg/sprite.svg#bars"></use>
+          </svg></a></div>
+      <div class="n-property-bar__property-mark "><a href="https://www.netapp.com" class="n-property-bar__property-link"><div class="n-property-bar__logo">
+            <svg class="n-icon-netapp-mark n-icon-netapp-mark n-property-bar__netapp-mark-icon" aria-labelledby="title">
+              <title>NetApp Mark</title>
+              <use xlink:href="/occm35/de-de/common/svg/sprite.svg#netapp-mark"></use>
+            </svg>
+            <svg class="n-icon-netapp-logo n-property-bar__logo-svg" aria-labelledby="title">
+              <title>NetApp Logo</title>
+              <use xlink:href="/occm35/de-de/common/svg/sprite.svg#netapp-logo"></use>
+            </svg>
+          </div></a></div>
+      <div class="n-property-navigation-bar n-property-navigation-bar--embedded">
+        <nav class="n-property-navigation-bar__nav">
+          <div class="n-container">
+            <ul class="n-property-navigation-bar__nav-list">
+              <li class="n-property-navigation-bar__nav-list-item"><a href="#" class="n-property-navigation-bar__nav-link" data-ntap-target="products-and-solutions" data-ntap-toggle="menu"> <span class="n-property-navigation-bar__nav-link-text">Produkte und L&ouml;sungen</span><svg class="n-icon-chevron-down n-property-navigation-bar__menu-indicator" aria-labelledby="title">
+                    <title>Chevron-down</title>
+                    <use xlink:href="/occm35/de-de/common/svg/sprite.svg#chevron-down"></use>
+                  </svg></a></li>
+              <li class="n-property-navigation-bar__nav-list-item"><a href="#" class="n-property-navigation-bar__nav-link" data-ntap-target="support-and-training" data-ntap-toggle="menu"> <span class="n-property-navigation-bar__nav-link-text">Support und Training</span><svg class="n-icon-chevron-down n-property-navigation-bar__menu-indicator" aria-labelledby="title">
+                    <title>Chevron-down</title>
+                    <use xlink:href="/occm35/de-de/common/svg/sprite.svg#chevron-down"></use>
+                  </svg></a></li>
+              <li class="n-property-navigation-bar__nav-list-item"><a href="https://cloud.netapp.com/home" target="_blank" class="n-property-navigation-bar__nav-link"><span class="n-property-navigation-bar__nav-link-text">Cloud Central</span></a></li><!--
+                <li class="n-property-navigation-bar__nav-list-item" data-ntap-ui="more-menu">
+                    <a href="#" class="n-property-navigation-bar__nav-link" data-ntap-target="more-menu">
+                    <span class="n-property-navigation-bar__nav-link-text">More</span>
+                    <svg class="n-icon-chevron-down n-property-navigation-bar__menu-indicator" aria-labelledby="title">
+                        <title>chevron-down</title>
+                        <use xlink:href="/common/svg/sprite.svg#chevron-down"></use>
+                    </svg>
+                    </a>
+                </li>
+                --></ul>
+          </div>
+        </nav>
+      </div>
+    </div><!-- start copy from prototype here --><div class="n-property-navigation-bar__menus n-property-navigation-bar__menus--desktop-experience">
+      <div class="n-menu n-menu--mega" data-ntap-target="products-and-solutions" data-ntap-layout="4">
+        <div class="n-container">
+          <div class="n-menu--mega__default-content-container">
+            <section class="n-menu--mega__default-content">
+              <p class="n-menu--mega__default-content__intro-heading">F&uuml;r Sie vorgeschlagen</p>
+              <p class="n-menu--mega__default-content__heading"><span>Optimale STORAGE-GR&Ouml;SSE MIT SCHNELLER, 3-MINUTER-BEWERTUNG.</span></p>
+              <p>Sie erhalten Datenmanagement-Empfehlungen, die Ihre individuellen Gesch&auml;ftsanforderungen widerspiegeln.</p><a href="https://explore.netapp.com" target="_blank" class="luci-button luci-link--cta" title="Jetzt TESTEN"> <span class="luci-link__text">Jetzt TESTEN</span><svg class="luci-icon luci-link__icon luci-link__icon--right" aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a> <a href="https://explore.netapp.com" target="_blank"><img class="n-menu--mega__default-content__image" src="https://www.netapp.com/us/media/DXD363-McKinseyTool-Promos-465X294.png" alt="Testen Sie unsere 3-min&uuml;tige Bewertung"></a></section>
+          </div>
+          <canvas class="aim-awareness-container" style="display:inline-block;pointer-events:none;position:absolute;z-index:9999;"></canvas>
+          <ul class="n-menu--mega__sub-navigation"><!-- Cloud services --><li class="n-menu--mega__sub-navigation__primary-nav"><a class="n-menu--mega__sub-navigation__primary-nav__link" href="#" title="">Cloud-Services<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a><div class="n-menu--mega__content-container">
+                <section class="n-menu--mega__content n-menu--mega__content--col-1">
+                  <ul class="n-menu--mega__content--overview">
+                    <li>
+                      <h3>&Uuml;berblick</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/cloud-services/why-netapp-for-cloud-services.aspx">Warum NetApp f&uuml;r Cloud Services</a></li>
+                    <li><a href="https://www.netapp.com/us/products/cloud-services/use-cases-for-netapp-cloud-services.aspx">Erfahren Sie, was Sie mit NetApp Cloud Services erreichen k&ouml;nnen</a></li>
+                    <li><a href="https://www.netapp.com/us/products/cloud-services/netapp-cloud-services-tour.aspx">Tour zu Cloud-Services</a></li>
+                  </ul>
+                </section>
+                <section class="n-menu--mega__content n-menu--mega__content--col-2">
+                  <ul class="n-menu--mega__content--product-list">
+                    <li>
+                      <h3>Produkte</h3>
+                    </li>
+                    <li><a href="https://cloud.netapp.com/azure-netapp-files" target="_blank">Azure NetApp Dateien</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-volumes-service-for-aws" target="_blank">Cloud Volumes Service f&uuml;r AWS</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-volumes-service-for-gcp" target="_blank">Cloud Volumes Service f&uuml;r Google Cloud</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-volumes-service-for-on-premises" target="_blank">Cloud Volumes Service f&uuml;r On-Premises</a></li>
+                    <li><a href="https://cloud.netapp.com/ontap-cloud" target="_blank">Cloud Volumes ONTAP</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-manager" target="_blank">Cloud Manager</a></li>
+                    <li><a href="https://cloud.netapp.com/kubernetes-service" target="_blank">NetApp Kubernetes Service</a></li>
+                    <li><a href="https://cloud.netapp.com/fabric-orchestrator" target="_blank">Fabric Orchestrator</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-insights" target="_blank">Einblicke in die Cloud</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-sync-service" target="_blank">Cloud-Synchronisierung</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-tiering" target="_blank">Cloud Tiering</a></li>
+                    <li><a href="https://cloud.netapp.com/saas-backup" target="_blank">SaaS-Backup</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-backup-service" target="_blank">Cloud-Backup-Service</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-compliance" target="_blank">Cloud-Compliance</a></li>
+                  </ul>
+                </section>
+                <section class="n-menu--mega__content n-menu--mega__content--col-3">
+                  <ul class="n-menu--mega__content--usecase-list">
+                    <li>
+                      <h3>Ideal f&uuml;r</h3>
+                    </li>
+                    <li><a href="https://cloud.netapp.com/data-migration" target="_blank">Datenmigration</a></li>
+                    <li><a href="https://cloud.netapp.com/data-protection" target="_blank">Datensicherung</a></li>
+                    <li><a href="https://cloud.netapp.com/database" target="_blank">Datenbanken</a></li>
+                    <li><a href="https://cloud.netapp.com/block-storage" target="_blank">Block-Storage</a></li>
+                    <li><a href="https://cloud.netapp.com/cloud-native-applications" target="_blank">Native Cloud-Anwendungen</a></li>
+                    <li><a href="https://cloud.netapp.com/file-services" target="_blank">Fileservices</a></li>
+                    <li><a href="https://cloud.netapp.com/hpc-analytics" target="_blank">High-Performance-Computing und Analysen</a></li>
+                  </ul>
+                </section>
+              </div>
+            </li><!-- Hybrid Cloud Infrastructure --><li class="n-menu--mega__sub-navigation__primary-nav"><a class="n-menu--mega__sub-navigation__primary-nav__link" href="#" title="">Hybrid Cloud-Infrastruktur<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a><div class="n-menu--mega__content-container">
+                <section class="n-menu--mega__content n-menu--mega__content--col-1">
+                  <ul class="n-menu--mega__content--usecase-list">
+                    <li>
+                      <h3>Ich muss</h3>
+                    </li>
+                    <li>
+                      <h4><a href="https://www.netapp.com/us/solutions/it-automation/index.aspx">Vereinfachung und Automatisierung virtualisierter Workloads</a></h4>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/solutions/it-automation/google-clouds-anthos.aspx">Google Cloud&apos;s Anthos &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/it-automation/redhat.aspx">Red Hat Private Cloud &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/it-automation/openstack-private-cloud.aspx">OpenStack Private Cloud &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/it-automation/vmware-private-cloud.aspx">VMware Private Cloud &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/it-automation/desktop-virtualization.aspx">End User Computing (VDI) &apos;</a></li>
+                  </ul>
+                  <ul class="n-menu--mega__content--usecase-list">
+                    <li>
+                      <h4><a href="https://www.netapp.com/us/solutions/build-cloud-infrastructure/index.aspx">Aufbau einer Infrastruktur f&uuml;r Service-Provider</a></h4>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/solutions/build-cloud-infrastructure/infrastructure-as-a-service.aspx">IaaS-L&ouml;sungen &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/build-cloud-infrastructure/platform-as-a-service.aspx">PaaS-L&ouml;sungen &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/build-cloud-infrastructure/software-as-a-service.aspx">SaaS-L&ouml;sungen &apos;</a></li>
+                  </ul>
+                </section>
+                <section class="n-menu--mega__content n-menu--mega__content--col-2">
+                  <ul class="n-menu--mega__content--usecase-list">
+                    <li>
+                      <h4><a href="https://www.netapp.com/us/solutions/devops/index.aspx">Beschleunigen Sie Ihre DevOps Reise</a></h4>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/solutions/devops/software-development-life-cycle.aspx">Software Development Lifecycle (SDLC) &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/devops/code-and-artifact-repository.aspx">Code- und Artefakt-Repository &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/devops/continuous-integration-and-continuous-delivery.aspx">Kontinuierliche Integration/kontinuierliche Bereitstellung (CI/CD) &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/devops/configuration-management.aspx">Konfigurations- und Ressourcenmanagement &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/it-automation/containers.aspx">Container &apos;</a></li>
+                  </ul>
+                  <ul class="n-menu--mega__content--usecase-list">
+                    <li>
+                      <h4><a href="https://www.netapp.com/us/solutions/unstructured-data/index.aspx">Optimierung unstrukturierter Daten</a></h4>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/solutions/unstructured-data/rich-media.aspx">Rich Content Management &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/unstructured-data/distributed-content.aspx">Verteiltes Content Management &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/unstructured-data/internet-of-things.aspx">IOT &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/unstructured-data/video-surveillance.aspx">Video&uuml;berwachung &apos;</a></li>
+                  </ul>
+                </section>
+                <section class="n-menu--mega__content n-menu--mega__content--col-3">
+                  <ul class="n-menu--mega__content--overview">
+                    <li>
+                      <h3>&Uuml;berblick</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/private-cloud/index.aspx">NetApp Private Cloud - &Uuml;bersicht</a></li>
+                    <li><a href="https://www.netapp.com/us/hybrid-cloud-infrastructure.aspx">Warum NetApp f&uuml;r Hybrid Multicloud</a></li>
+                  </ul>
+                  <ul class="n-menu--mega__content--product-list">
+                    <li>
+                      <h3>Produkte</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/converged-systems/hyper-converged-infrastructure.aspx">NetApp HCI</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-management-software/object-storage-grid-sds.aspx">StorageGRID Objektspeicher</a></li>
+                  </ul>
+                </section>
+              </div>
+            </li><!-- Flash storage --><li class="n-menu--mega__sub-navigation__primary-nav"><a class="n-menu--mega__sub-navigation__primary-nav__link" href="#" title="">Flash-Storage<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a><div class="n-menu--mega__content-container">
+                <section class="n-menu--mega__content n-menu--mega__content--col-1">
+                  <ul class="n-menu--mega__content--usecase-list">
+                    <li>
+                      <h3>Ich muss</h3>
+                    </li>
+                    <li>
+                      <h4><a href="https://www.netapp.com/us/solutions/applications/index.aspx">Beschleunigung von Workloads und Analysen</a></h4>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/solutions/applications/sap/index.aspx">SAP-L&ouml;sungen &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/applications/oracle-database.aspx">Oracle Datenbankl&ouml;sungen &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/applications/big-data-analytics/index.aspx">Analysen: Splunk, Hadoop, NoSQL &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/applications/ai-deep-learning.aspx">KI und Deep Learning &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/applications/engineering/index.aspx">Engineering- und Design-Applikationen &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/applications/microsoft/index.aspx">MS-Anwendungsl&ouml;sungen &apos;</a></li>
+                  </ul>
+                  <ul class="n-menu--mega__content--usecase-list">
+                    <li>
+                      <h4><a href="https://www.netapp.com/us/solutions/data-center-efficiency/index.aspx">H&ouml;here Datacenter-Effizienz</a></h4>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/solutions/data-center-efficiency/data-center-consolidation.aspx">Datacenter-Konsolidierung &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/data-center-efficiency/virtual-server-infrastructure.aspx">Virtual Server-Infrastruktur &apos;</a></li>
+                  </ul>
+                </section>
+                <section class="n-menu--mega__content n-menu--mega__content--col-2">
+                  <ul class="n-menu--mega__content--usecase-list">
+                    <li>
+                      <h4><a href="https://www.netapp.com/us/solutions/data-protection/index.aspx">Sch&uuml;tzen und Sichern von Daten</a></h4>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/solutions/data-protection/backup-recovery.aspx">Backup und Recovery &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/data-protection/disaster-recovery.aspx">Business Continuity/Disaster Recovery &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/a-z/storage-security/index.aspx">Datensicherheit &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/a-z/storage-security/security-privacy.aspx">Datenschutz &apos;</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/data-protection/data-compliance.aspx">Datenkonformit&auml;t &apos;</a></li>
+                  </ul>
+                </section>
+                <section class="n-menu--mega__content n-menu--mega__content--col-3">
+                  <ul class="n-menu--mega__content--product-list">
+                    <li>
+                      <h3>Produkte</h3>
+                    </li>
+                    <li>
+                      <h4><a href="https://www.netapp.com/us/products/storage-systems/all-flash-array/index.aspx">All-Flash-Arrays</a></h4>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/all-flash-array/aff-a-series.aspx">AFF A-Serie</a></li>
+                    <li><a href="https://www.netapp.com/us/products/entry-level-aff.aspx">AFF C 190</a></li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/all-flash-array/nvme.aspx">NVMe Storage</a></li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/all-flash-array/solidfire-web-scale.aspx">SolidFire</a></li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/all-flash-array/ef-series.aspx">EF-Series</a></li>
+                    <li><a href="https://www.netapp.com/us/products/ontap-ai.aspx">ONTAP AI</a></li>
+                  </ul>
+                  <ul class="n-menu--mega__content--product-list">
+                    <li>
+                      <h4><a href="https://www.netapp.com/us/products/storage-systems/hybrid-flash-array/index.aspx">Hybrid-Arrays</a></h4>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/hybrid-flash-array/fas.aspx">FAS</a></li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/hybrid-flash-array/index.aspx">E-Series</a></li>
+                    <li><a href="https://www.netapp.com/us/products/converged-systems/flexpod-converged-infrastructure.aspx">FlexPod</a></li>
+                  </ul>
+                </section>
+              </div>
+            </li><!-- NetApp Keystone --><li><a href="#" title="">NetApp Keystone<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a><div class="n-menu--mega__content-container">
+                <section class="n-menu--mega__content n-menu--mega__content--col-1">
+                  <ul class="n-menu--mega__content--overview">
+                    <li>
+                      <h3>&Uuml;berblick</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/solutions/keystone/index.aspx">Ein neues Verbrauchsmodell</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/keystone/ownership-experience.aspx">Eine bessere Eigent&uuml;mererfahrung</a></li>
+                    <li><a href="https://www.netapp.com/us/solutions/keystone/cloud-consumption.aspx">Keystone Cloud Consumption Services</a></li>
+                  </ul>
+                </section>
+              </div>
+            </li><!-- Data storage systems --><li><a href="#" title="">Datenspeichersysteme<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a><div class="n-menu--mega__content-container">
+                <section class="n-menu--mega__content n-menu--mega__content--col-1">
+                  <ul class="n-menu--mega__content--overview">
+                    <li>
+                      <h3>&Uuml;berblick</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/index.aspx">Warum Datenspeichersysteme</a></li>
+                  </ul>
+                  <ul class="n-menu--mega__content--product-list">
+                    <li>
+                      <h3>Produkte</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/storage-area-network.aspx">San</a></li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/virtualization-flexarray.aspx">FlexArray Storage-Virtualisierung</a></li>
+                    <li><a href="https://www.netapp.com/us/products/storage-systems/disk-shelves-and-storage-media/index.aspx">Festplatten-Shelfs und Storage-Medien</a></li>
+                  </ul>
+                </section>
+              </div>
+            </li><!-- Data infrastructure management --><li><a href="#" title="">Dateninfrastrukturmanagement<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a><div class="n-menu--mega__content-container">
+                <section class="n-menu--mega__content n-menu--mega__content--col-1">
+                  <ul class="n-menu--mega__content--overview">
+                    <li>
+                      <h3>&Uuml;berblick</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/data-infrastructure-management/index.aspx">Warum Data Infrastructure Management</a></li>
+                  </ul>
+                  <ul class="n-menu--mega__content--product-list">
+                    <li>
+                      <h3>Produkte</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/data-infrastructure-management/oncommand-insight.aspx">OnCommand Insight</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-infrastructure-management/workflow-automation.aspx">OnCommand Workflow-Automatisierung</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-infrastructure-management/cloud-manager.aspx">NetApp Cloud Manager</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-infrastructure-management/virtual-infrastructure.aspx">Management virtueller Infrastrukturen</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-infrastructure-management/active-iq.aspx">Active IQ Predictive Analytics und Support</a></li>
+                  </ul>
+                </section>
+              </div>
+            </li><!-- Data storage software --><li><a href="#" title="">Datenspeichersoftware<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a><div class="n-menu--mega__content-container">
+                <section class="n-menu--mega__content n-menu--mega__content--col-1">
+                  <ul class="n-menu--mega__content--overview">
+                    <li>
+                      <h3>&Uuml;berblick</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/data-management-software/index.aspx">Warum Datenspeichersoftware</a></li>
+                  </ul>
+                  <ul class="n-menu--mega__content--product-list">
+                    <li>
+                      <h3>Produkte</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/data-management-software/ontap.aspx">ONTAP Data Management-Software</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-management-software/element-os.aspx">Element Software</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-management-software/santricity-os.aspx">SANtricity Software</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-management-software/ontap-select-sds.aspx">ONTAP Select</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-management-software/object-storage-grid-sds.aspx">StorageGRID-Software</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-management-software/max-data.aspx">Max Data Software</a></li>
+                  </ul>
+                </section>
+              </div>
+            </li><!-- Data protection and security --><li><a href="#" title="">Datensicherung UND -SICHERHEIT<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a><div class="n-menu--mega__content-container">
+                <section class="n-menu--mega__content n-menu--mega__content--col-1">
+                  <ul class="n-menu--mega__content--overview">
+                    <li>
+                      <h3>&Uuml;berblick</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/backup-recovery/index.aspx">Warum Backup und Recovery</a></li>
+                  </ul>
+                  <ul class="n-menu--mega__content--product-list">
+                    <li>
+                      <h3>Produkte</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/products/backup-recovery/data-availability-services.aspx">Services zur Datenverf&uuml;gbarkeit</a></li>
+                    <li><a href="https://www.netapp.com/us/products/backup-recovery/snapcenter-backup-management.aspx">SnapCenter Backup-Management</a></li>
+                    <li><a href="https://www.netapp.com/us/products/backup-recovery/snapmirror-data-replication.aspx">SnapMirror Datenreplizierung</a></li>
+                    <li><a href="https://www.netapp.com/us/products/backup-recovery/snaplock-compliance.aspx">SnapLock Datenkonformit&auml;t</a></li>
+                    <li><a href="https://www.netapp.com/us/products/data-security/index.aspx">ONTAP Datensicherheit</a></li>
+                  </ul>
+                </section>
+              </div>
+            </li><!-- Professional services --><li><a href="#" title="">Professional Services<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a><div class="n-menu--mega__content-container">
+                <section class="n-menu--mega__content n-menu--mega__content--col-1">
+                  <ul class="n-menu--mega__content--product-list">
+                    <li>
+                      <h3>Services</h3>
+                    </li>
+                    <li><a href="https://www.netapp.com/us/services/index.aspx">NetApp Services</a></li>
+                    <li><a href="https://www.netapp.com/us/services/index.aspx#business-consulting">Beratung</a></li>
+                    <li><a href="https://www.netapp.com/us/services/index.aspx#business-consulting">Professional Services</a></li>
+                    <li><a href="https://www.netapp.com/us/services/index.aspx#operational-support">Betrieblicher Support</a></li>
+                  </ul>
+                </section>
+              </div>
+            </li>
+          </ul>
+          <ul class="n-menu--mega__footer-nav">
+            <li><a href="https://www.netapp.com/us/try-and-buy/test-drive/index.aspx">Probefahrt<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a></li>
+           <li><a href="https://www.netapp.com/us/info/index.aspx" title="">Wissenszentrum<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a></li>
+            <li><a href="https://www.netapp.com/us/products/a-z/index.aspx" title="">Alle Produkte A-Z<svg aria-hidden="true" xmlns="http://www.w3.org/2000/svg" viewbox="0 0 13 9">
+                  <polygon points="0,3.8 10.2,3.8 7.6,1.1 8.7,0 13,4.5 8.7,9 7.6,7.9 10.2,5.2 0,5.2"></polygon>
+                </svg></a></li>
+
+
+          </ul>
+          <div class="n-menu--mega__footer-nav__corrective-padding"></div>
+        </div>
+      </div>
+      <div class="n-menu n-menu--mega" data-ntap-target="support-and-training" data-ntap-layout="4">
+        <div class="n-container"><!-- Support and training --><div class="n-menu--mega__support-and-training">
+            <div class="n-menu--mega__support-and-training__fake-button">Support und Training</div>
+            <section class="n-menu--mega__support-and-training__col-container">
+              <ul class="n-menu--mega__support-and-training__col-1">
+                <li><a href="https://mysupport.netapp.com/">Unterst&uuml;tzung</a></li>
+                <li><a href="https://www.netapp.com/us/services-support/university/index.aspx">Schulung</a></li>
+                <li><a href="https://www.netapp.com/us/try-and-buy/test-drive/index.aspx">Probefahrt</a></li>
+                <li><a href="https://www.netapp.com/us/documentation/index.aspx">Produktdokumentation</a></li>
+                <li><a href="https://mysupport.netapp.com/documentation/productsatoz/index.html">Installation und Konfiguration</a></li>
+                <li><a href="https://mysupport.netapp.com/GPS/index.html">Fehlerbehebung</a></li>
+                <li><a href="https://partner-connect.netapp.com/us/partner-directory">Partner finden</a></li>
+              </ul>
+            </section>
+            <section class="n-menu--mega__support-and-training__col-container">
+              <ul class="n-menu--mega__support-and-training__col-2">
+                <li>
+                  <h3>Erfordert NETAPP-LOGIN</h3>
+                </li>
+                <li><a href="https://mysupport.netapp.com/NOW/cgi-bin/software/">Software herunterladen</a></li>
+                <li><a href="https://mysupport.netapp.com/eservice/registerSNoAction.do?moduleName=RegisterMyProduct">Registrieren Sie ein Produkt</a></li>
+                <li><a href="https://mysupport.netapp.com/apbu/3pr/frulkup?moduleName=3pr">Vertr&auml;ge und Garantien anzeigen</a></li>
+                <li><a href="https://mysupport.netapp.com/cssportal/faces/oracle/webcenter/portalapp/pages/css/casesparts/ViewCasesLanding.jspx">&Uuml;berpr&uuml;fen Sie den Fallstatus</a></li>
+              </ul>
+              <div class="n-menu--mega__signup-container">Nicht registriert? <a href="https://mysupport.netapp.com/eservice/public/now.do">Melden Sie sich an</a></div>
+            </section>
+          </div>
+        </div>
+      </div>
+    </div><!-- end copy from prototype here --></div>
+  <script>
+    $(function(){
+        var currentLocalization = $('html').attr('lang');
+
+        var localizationsDictionary = {
+            "en-CA" : "https://www.netapp.com/search/index.aspx?for_cr=canada&",
+            "en-IN" : "https://www.netapp.com/search/index.aspx?for_cr=india&",
+            "nl-NL" : "https://www.netapp.com/search/index.aspx?for_cr=netherlands&",
+            "ru-RU" : "https://www.netapp.com/search/index.aspx?for_cr=russia&",
+            "sv-SE" : "https://www.netapp.com/search/index.aspx?for_cr=sweden&",
+            "it-IT" : "https://www.netapp.com/search/index.aspx?for_cr=italy&",
+            "he-IL" : "https://www.netapp.com/search/index.aspx?for_cr=israel&",
+            "ko-KR" : "https://www.netapp.com/search/index.aspx?for_cr=korea&",
+            "zh-TW" : "https://www.netapp.com/search/index.aspx?for_cr=taiwan&",
+            "en-GB" : "https://www.netapp.com/search/index.aspx?for_cr=unitedkingdom&",
+            "en-SG" : "https://www.netapp.com/search/index.aspx?for_cr=asean&",
+            "en-AU" : "https://www.netapp.com/search/index.aspx?for_cr=australia&",
+            "pt-BR" : "https://www.netapp.com/search/index.aspx?for_cr=brasil&",
+            "de-CH" : "https://www.netapp.com/search/index.aspx?for_cr=switzerland&",
+            "es-MX" : "https://www.netapp.com/search/index.aspx?for_cr=mexico&"
+        };
+
+        if($('html').hasClass('ntap-whitelisted') && localizationsDictionary.hasOwnProperty(currentLocalization)) {
+            $('.n-property-bar__property-link').attr('href', '/');
+        }
+    });
+  </script><!-- End property bar --></header>
+
+        <div class="ie-utility">
+  <div class="ie-menu">
+    <div class="n-property-bar__toolbar"><!-- Start Language Selector --><div id="ie-i18n" class="n-property-bar__lang-selector">
+        <div id="ie-i18n-menu"><span class="ie-i18n-lang">Deutsch</span><button class="ie-i18n-icon-container" type="button">
+            <svg class="n-globe__icon" aria-labelledby="title">
+              <title>Globus</title>
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#globe"></use>
+            </svg>
+          </button>
+        </div>
+
+        <div id="n-property-navigation-bar__menu--language-selector" class="ie-i18n-results-container n-menu n-menu--v3 n-menu--is-active" style="display: none; right: auto;">
+          <div class="n-language-selector-menu">
+            <div class="n-language-selector-menu__header"><span class="n-language-selector-menu__title">W&auml;hlen Sie Ihre Sprache aus</span></div>
+            <ul class="n-menu__list">
+              <li class="n-menu__list-column">
+                <ul class="n-menu__list">
+                  
+                  
+                  
+                  <li class="n-menu__list-item n-menu__list-item--level-1"><a href="/occm35/us-en/" class="n-menu__header-text"><span translate="no" class="notranslate">Englisch</span></a></li>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <li class="n-menu__list-item n-menu__list-item--level-1"><a href="/occm35/ja-jp/" class="n-menu__header-text"><span translate="no" class="notranslate">Auf der Seite</span></a></li>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                  <li class="n-menu__list-item n-menu__list-item--level-1"><a href="/occm35/de-de/" class="n-menu__header-text"><span translate="no" class="notranslate">Deutsch</span></a></li>
+                  
+                  
+                  
+                  
+                  
+                  
+                  
+                </ul>
+              </li>
+            </ul>
+            <div class="menu__footer">
+              <p>Aktuelle Sprache: Deutsch</p>
+            </div>
+          </div>
+        </div>
+      </div><!-- End Language Selector --><div class="n-property-bar__cta"></div>
+
+      
+      <div id="search-demo-container" class="searchbox n-property-bar__search">
+        <div id="react-search"></div>
+        <button class="n-property-bar__search-toggle-button" type="button">
+          <svg class="n-icon-search n-property-bar__search-toggle-button-icon" aria-labelledby="title">
+            <title>Suchen</title>
+            <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#search"></use>
+          </svg>
+        </button>
+      </div>
+      
+    </div>
+
+    
+    <div class="n-breadcrumb">
+      <ul class="n-breadcrumb__list">
+        <li class="n-breadcrumb__list-item"><a href="https://www.netapp.com">Zu Hause</a></li>
+        <li class="n-breadcrumb__list-item"><a href="https://docs.netapp.com">Dokumentation</a></li>
+        
+        <li class="n-breadcrumb__list-item"><a href="https://docs.netapp.com/de-de/cloud/">Cloud-Dokumentation</a></li>
+        
+
+        <li class="n-breadcrumb__list-item"><a href="/occm35/de-de/">Cloud Manager 3.5</a></li>
+        <li class="n-breadcrumb__list-item">Storage-Management</li>
+      </ul>
+    </div>
+    
+
+    <div style="clear: both"></div><!-- Main needs to have height --></div>
+</div>
+
+
+        <main id="n-main-content" class="n-main-content"><!-- Start Documentation Content --><div class="ie-main"><!-- Sidebar Column --><div class="col-md-3" >
+      
+
+
+
+<div class="n-pdf-header"><a id="toggleButtonPdf" class="n-pdf-button" type="button">&vellip;PDF herunterladen <span> <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/> </span></a></div>
+<ul id="toggleContainerPdf" class="n-pdf-body" style="display:none;">
+  
+    <div class="n-pdf-section"><span class="n-pdf-section-title">Standort</span></div>
+    <li><a target="_blank" href="/occm35/de-de/pdfs/fullsite-sidebar/Cloud_Manager_and_Cloud_Volumes_ONTAP_documentation.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Cloud Manager und Cloud Volumes ONTAP Dokumentation</a></li><span class="subfolders" style="display:none;"><div class="n-pdf-section"><span class="n-pdf-section-title">Abschnitte</span></div>
+      
+      <li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Release_notes.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Versionshinweise</a></li><span> <span class="subfolders" style="display:none;"><li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Cloud_Manager.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Cloud Manager</a></li><span></span> </span> </span>
+    </span>
+  
+
+  
+    <span class="subfolders" style="display:none;"><div class="n-pdf-section"><span class="n-pdf-section-title">Abschnitte</span></div>
+      
+      <li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Concepts.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Konzepte</a></li><span><div class="n-pdf-section"><span class="n-pdf-section-title">Dieses Thema</span></div>
+
+    <li class="active"><a target="_blank" href="/occm35/de-de/pdfs/pages/concept_storage_management.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Storage-Management</a></li></span> </span>
+  
+
+  
+    <span class="subfolders" style="display:none;"><div class="n-pdf-section"><span class="n-pdf-section-title">Abschnitte</span></div>
+      
+      <li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Getting_started.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Erste Schritte</a></li><span> <span class="subfolders" style="display:none;"><li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Detailed_networking_requirements.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Detaillierte Netzwerkanforderungen</a></li><span></span> </span> <span class="subfolders" style="display:none;"><li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Additional_deployment_options.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Zus&auml;tzliche Bereitstellungsoptionen</a></li><span></span> </span> <span class="subfolders" style="display:none;"><li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Additional_ways_to_provide_permissions.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Zus&auml;tzliche M&ouml;glichkeiten zur Bereitstellung von Berechtigungen</a></li><span></span> </span> </span>
+    </span>
+  
+
+  
+    <span class="subfolders" style="display:none;"><div class="n-pdf-section"><span class="n-pdf-section-title">Abschnitte</span></div>
+      
+      <li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Deploying_Cloud_Volumes_ONTAP.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Implementierung von Cloud Volumes ONTAP</a></li><span></span> </span> <span class="subfolders" style="display:none;"><div class="n-pdf-section"><span class="n-pdf-section-title">Abschnitte</span></div>
+      
+      <li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Provisioning_storage.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Storage-Bereitstellung</a></li><span> <span class="subfolders" style="display:none;"><li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Provisioning_NFS_volumes_from_the_Volume_View.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Bereitstellung von NFS-Volumes &uuml;ber die Volume-Ansicht</a></li><span></span> </span> </span>
+    </span>
+  
+
+  
+    <span class="subfolders" style="display:none;"><div class="n-pdf-section"><span class="n-pdf-section-title">Abschnitte</span></div>
+      
+      <li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Managing_data_across_a_hybrid_cloud.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Datenmanagement in einer Hybrid Cloud</a></li><span></span> </span> <span class="subfolders" style="display:none;"><div class="n-pdf-section"><span class="n-pdf-section-title">Abschnitte</span></div>
+      
+      <li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Administering_Cloud_Volumes_ONTAP.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Administration von Cloud Volumes ONTAP</a></li><span></span> </span> <span class="subfolders" style="display:none;"><div class="n-pdf-section"><span class="n-pdf-section-title">Abschnitte</span></div>
+      
+      <li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Administering_Cloud_Manager.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Administration von Cloud Manager</a></li><span></span> </span> <span class="subfolders" style="display:none;"><div class="n-pdf-section"><span class="n-pdf-section-title">Abschnitte</span></div>
+      
+      <li><a target="_blank" href="/occm35/de-de/pdfs/sidebar/Reference.pdf" > <img src="/occm35/de-de/images/pdf.png" width="20" height="20"/>Referenz</a></li><span></span> </span></ul>
+
+<script>
+  $("#toggleContainerPdf li.active").parents('li').toggle('display');
+  $("#toggleContainerPdf li.active").parents('span.subfolders').toggle('display');
+  $("#toggleButtonPdf").click(function () {
+    $("#toggleContainerPdf").toggle('display');
+  });
+</script>
+
+
+
+<ul id="mysidebar" class="nav">
+  
+    
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="index.html">Cloud Manager 3.5-Dokumente</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Versionshinweise</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Cloud Manager</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_new_occm.html">Was ist neu</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_issues.html">Bekannte Probleme</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_limitations.html">Bekannte Einschr&auml;nkungen</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="https://docs.netapp.com/us-en/cloud-volumes-ontap/">Cloud Volumes ONTAP</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Konzepte</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="concept_overview.html">Produkt&uuml;bersicht</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="concept_cloud_central.html">NetApp Cloud Central</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="concept_storage.html">Storage</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="  active "><a class="na-navbar-padding" href="concept_storage_management.html">Storage-Management</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="concept_ha.html">Hochverf&uuml;gbarkeitspaare</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="concept_security.html">Sicherheit</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="concept_worm.html">WORM-Storage</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="concept_licensing.html">Lizenzierung</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="concept_performance.html">Leistung</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="concept_storage_automation.html">Cloud-Storage-Automatisierung</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Erste Schritte</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_deployment_overview.html">Implementierungs&uuml;bersicht</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_getting_started_aws.html">Erste Schritte in AWS</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_getting_started_azure.html">Erste Schritte in Azure</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_setting_up_cloud_manager.html">Einrichten von Cloud Manager</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Detaillierte Netzwerkanforderungen</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_networking_cloud_manager.html">Anforderungen f&uuml;r Cloud Manager</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_networking_aws.html">Anforderungen f&uuml;r Cloud Volumes ONTAP in AWS</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_networking_azure.html">Anforderungen f&uuml;r Cloud Volumes ONTAP in Azure</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Zus&auml;tzliche Bereitstellungsoptionen</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_cloud_mgr_reqs.html">Anforderungen an den Cloud Manager Host</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_installing_linux.html">Installieren von Cloud Manager auf einem Linux-Host</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_launching_aws_mktp.html">Bereitstellung von Cloud Manager &uuml;ber den AWS Marketplace</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_launching_azure_mktp.html">Bereitstellung von Cloud Manager &uuml;ber Azure Marketplace</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_installing_azure_gov.html">Einf&uuml;hrung von Cloud Manager in Azure Gov</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_installing_azure_germany.html">Installation von Cloud Manager in Azure Deutschland</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Zus&auml;tzliche M&ouml;glichkeiten zur Bereitstellung von Berechtigungen</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_granting_aws_permissions.html">AWS-Berechtigungen erteilen, wenn Cloud Manager nicht &uuml;ber Cloud Central gestartet wird</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_creating_service_principal.html">Azure Berechtigungen mit einem Dienstprinzipal und Anmeldeinformationen gew&auml;hren</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_enabling_msi.html">Wechsel zu einer Managed Service Identity</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Implementierung von Cloud Volumes ONTAP</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_before.html">Bevor Sie beginnen</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_logging_in.html">Anmelden bei Cloud Manager</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_planning_your_config.html">Planung Ihrer Konfiguration</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_deploying_otc_aws.html">Starten von Cloud Volumes ONTAP in AWS</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_deploying_otc_azure.html">Starten von Cloud Volumes ONTAP in Azure</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_registering.html">Registrieren von Pay-as-you-go-Systemen</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_setting_up_ontap_cloud.html">Einrichten von Cloud Volumes ONTAP</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Storage-Bereitstellung</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_provisioning_storage.html">Erstellen von Volumes, Aggregaten und LUNs</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_tiering.html">Tiering von kalten Daten auf Objektspeicher</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_managing_storage.html">Management von vorhandenem Storage</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Bereitstellung von NFS-Volumes &uuml;ber die Volume-Ansicht</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_changing_volume_view.html">Wechseln zur Volume-Ansicht</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_provisioning_volume_view.html">Erstellen und Mounten von NFS-Volumes</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_managing_volume_view.html">Managen von NFS-Volumes</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Datenmanagement in einer Hybrid Cloud</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_discovering_ontap.html">Erkennung und Management von ONTAP Clustern</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_replicating_data.html">Replizierung von Daten in die und aus der Cloud</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_syncing_s3.html">Daten werden mit AWS S3 synchronisiert</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Administration von Cloud Volumes ONTAP</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_connecting_to_otc.html">Verbindung zu Cloud Volumes ONTAP</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_updating_ontap_cloud.html">Aktualisierung der Cloud Volumes ONTAP Software</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_modifying_ontap_cloud.html">&Auml;ndern von Cloud Volumes ONTAP Systemen</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_managing_state.html">Managen des Status von Cloud Volumes ONTAP</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_monitoring_costs.html">&Uuml;berwachung der AWS-Kosten</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_adding_ontap_cloud.html">Hinzuf&uuml;gen vorhandener Cloud Volumes ONTAP Systeme</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_deleting_working_env.html">L&ouml;schen von Cloud Volumes ONTAP Systemen</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Administration von Cloud Manager</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_updating_cloud_manager.html">Cloud Manager wird aktualisiert</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_backing_up_restoring.html">Sichern und Wiederherstellen</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_removing.html">Entfernen von Cloud Volumes ONTAP Arbeitsumgebungen</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_editing_users.html">Bearbeiten von Benutzerkonten</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_configuring_proxy.html">Konfigurieren von Cloud Manager f&uuml;r die Verwendung eines Proxyservers</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_managing_encryption.html">Verschl&uuml;sselungseinstellungen werden verwaltet</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_renewing_cert.html">HTTPS-Zertifikat wird erneuert</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="task_uninstalling.html">Cloud Manager wird deinstalliert</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class="subfolders "><a href="#"><div class="na-navbar-padding">Referenz</div></a><ul>
+          
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_integration_faq.html">H&auml;ufig gestellte Fragen zur Integration von Cloud Central</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="https://docs.netapp.com/us-en/cloud-volumes-ontap/reference_supported_configs_94.html">Unterst&uuml;tzte Konfigurationen f&uuml;r Cloud Volumes ONTAP</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_regions.html">Unterst&uuml;tzte Regionen</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_security_groups.html">Sicherheitsgruppenregeln f&uuml;r AWS</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_security_groups_azure.html">Sicherheitsgruppenregeln f&uuml;r Azure</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_apis.html">Rest-APIs</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_permissions.html">Berechtigungen</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_default_configs.html">Standardkonfigurationen</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_user_roles.html">Benutzerrollen</a></li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_additional_info.html">Weiterf&uuml;hrende Links</a></li>
+
+
+
+  
+
+
+        </ul>
+
+      
+    </li>
+
+
+
+  
+
+
+  
+
+  
+
+  
+  
+
+  
+    
+
+    
+
+    <li class=" "><a class="na-navbar-padding" href="reference_earlier_versions.html">Fr&uuml;here Versionen</a></li>
+
+
+
+  
+
+
+  
+</ul><!-- this highlights the active parent class in the navgoco sidebar. this is critical so that the parent expands when you're viewing a page. This must appear below the sidebar code above. Otherwise, if placed inside customscripts.js, the script runs before the sidebar code runs and the class never gets inserted.--><script>$("li.active").parents('li').toggleClass("active");</script>
+
+  </div>
+  
+
+  <div class="ie-content-pane n-doc__component-detail-content n-doc__component-detail-content--show-code"><!-- Begin of page container --><article class="page-content">
+      
+<div class="previous-version"><span class="previous-version-highlight">Diese Dokumentation bezieht sich auf eine fr&uuml;here Version von Cloud Manager.</span><br> <span><a href="https://docs.netapp.com/de-de/occm/">Die neueste Version finden Sie in den Dokumenten.</a></span></div>
+
+
+
+
+<div class="n-doc__component-detail-heading-wrap">
+  <h1 class="n-doc__component-detail-heading">Storage-Management</h1>
+</div>
+
+<p class="page-details">
+  
+    
+    <time datetime="2020-03-12 18:59:54 +0000">12.03.2020</time><span>Mitwirkende<a target="_blank" href="https://github.com/akseldavis"><img  class="avatar avatar-small"
+          alt="Akseldavis"
+          width="20" height="20"
+          src="https://avatars2.githubusercontent.com/u/33839009?v=4"
+          style="border-radius: 50%;"/></a><a target="_blank" href="https://github.com/netapp-bcammett"><img  class="avatar avatar-small"
+          alt="NetApp-bcammett"
+          width="20" height="20"
+          src="https://avatars3.githubusercontent.com/u/18287750?v=4"
+          style="border-radius: 50%;"/></a></span><span><a target="_blank" href="/occm35/de-de/pdfs/pages/concept_storage_management.pdf" role="button"><img src="/occm35/de-de/images/pdf.png" width="20" height="20"/> Laden Sie dieses Thema als PDF herunter </a></span></p>
+
+<div id="preamble">
+<div class="sectionbody">
+<div class="paragraph lead">
+<p>Cloud Manager erm&ouml;glicht ein vereinfachtes und erweitertes Management von Cloud Volumes ONTAP Storage.</p>
+</div>
+<div class="admonitionblock important">
+<table>
+<tr>
+<td class="icon"><i class="fa icon-important" title="Wichtig"></i></td>
+<td class="content">Alle Festplatten und Aggregate m&uuml;ssen direkt aus Cloud Manager erstellt und gel&ouml;scht werden. Sie sollten diese Aktionen nicht &uuml;ber ein anderes Management-Tool ausf&uuml;hren. Dies kann sich auf die Systemstabilit&auml;t auswirken, die F&auml;higkeit zum Hinzuf&uuml;gen von Festplatten in der Zukunft beeintr&auml;chtigen und m&ouml;glicherweise Kosten f&uuml;r redundante Cloud-Provider verursachen.</td>
+</tr>
+</table>
+</div>
+<div id="toc" class="toc">
+<div id="toctitle" class="title">Inhaltsverzeichnis</div>
+<ul class="sectlevel1">
+<li><a href="#storage-provisioning">Storage-Bereitstellung</a></li>
+<li><a href="#capacity-management">Kapazit&auml;tsmanagement</a></li>
+<li><a href="#storage-isolation-using-tenants">Storage-Isolierung mithilfe von Mandanten</a></li>
+<li><a href="#simplified-storage-management-using-the-volume-view">Vereinfachtes Storage-Management mit der Volume-Ansicht</a></li>
+</ul>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="storage-provisioning">Storage-Bereitstellung</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cloud Manager vereinfacht die Storage-Provisionierung f&uuml;r Cloud Volumes ONTAP durch den Kauf von Festplatten und das Management von Aggregaten. Sie m&uuml;ssen einfach Volumes erstellen. Sie k&ouml;nnen bei Bedarf eine erweiterte Zuweisungsoption verwenden, um Aggregate selbst bereitzustellen.</p>
+</div>
+<div class="sect2">
+<h3 id="simplified-provisioning">Vereinfachte Bereitstellung</h3>
+<div class="paragraph">
+<p>Aggregate stellen Cloud-Storage f&uuml;r Volumes bereit. Cloud Manager erstellt Aggregate f&uuml;r Sie, wenn Sie eine Instanz starten und wenn Sie zus&auml;tzliche Volumes bereitstellen.</p>
+</div>
+<div class="paragraph">
+<p>Wenn Sie ein Volume erstellen, f&uuml;hrt Cloud Manager eine der drei folgenden Aufgaben aus:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Das Volume wird auf einem vorhandenen Aggregat platziert, das &uuml;ber ausreichend freien Speicherplatz verf&uuml;gt.</p>
+</li>
+<li>
+<p>Das Volume wird auf einem vorhandenen Aggregat platziert, indem mehr Festplatten f&uuml;r dieses Aggregat erworben werden.</p>
+</li>
+<li>
+<p>Es kauft Festplatten f&uuml;r ein neues Aggregat und platziert das Volume auf diesem Aggregat.</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Cloud Manager bestimmt, wo ein neues Volume platziert werden soll, indem er verschiedene Faktoren betrachtet: Die maximale Gr&ouml;&szlig;e eines Aggregats, die Aktivierung von Thin Provisioning und die Schwellenwerte f&uuml;r freien Speicherplatz f&uuml;r Aggregate.</p>
+</div>
+<div class="admonitionblock tip">
+<table>
+<tr>
+<td class="icon"><i class="fa icon-tip" title="Tipp"></i></td>
+<td class="content">Der Cloud Manager Admin kann die Schwellenwerte f&uuml;r freien Speicherplatz auf der<strong></strong> Seite Einstellungen &auml;ndern.</td>
+</tr>
+</table>
+</div>
+<div class="sect3">
+<h4 id="disk-size-selection-for-aggregates-in-aws">Auswahl der Festplattengr&ouml;&szlig;e f&uuml;r Aggregate in AWS</h4>
+<div class="paragraph">
+<p>Wenn Cloud Manager neue Aggregate f&uuml;r Cloud Volumes ONTAP in AWS erstellt, erh&ouml;ht sich die Festplattengr&ouml;&szlig;e in einem Aggregat allm&auml;hlich, wenn die Anzahl der Aggregate im System steigt. Cloud Manager sorgt so daf&uuml;r, dass Sie die maximale Kapazit&auml;t des Systems nutzen k&ouml;nnen, bevor die maximale Anzahl von Datenfestplatten erreicht wird, die von AWS zugelassen werden.</p>
+</div>
+<div class="paragraph">
+<p>Cloud Manager kann beispielsweise die folgenden Festplattengr&ouml;&szlig;en f&uuml;r Aggregate in einem Cloud Volumes ONTAP Premium oder Byol System w&auml;hlen:</p>
+</div>
+<table class="tableblock frame-all grid-all" style="width: 60%;">
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Aggregatnummer</th>
+<th class="tableblock halign-left valign-top">Festplattengr&ouml;&szlig;e</th>
+<th class="tableblock halign-left valign-top">Max. Gesamtkapazit&auml;t</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">500 MB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">3 TB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">4</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">1 TB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6 TB</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock">6</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">2 TB</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">12 TB</p></td>
+</tr>
+</tbody>
+</table>
+<div class="paragraph">
+<p>Sie k&ouml;nnen die Festplattengr&ouml;&szlig;e selbst mithilfe der erweiterten Zuweisungsoption ausw&auml;hlen.</p>
+</div>
+</div>
+</div>
+<div class="sect2">
+<h3 id="advanced-allocation">Erweiterte Zuweisung</h3>
+<div class="paragraph">
+<p>Anstatt Cloud Manager Aggregate f&uuml;r Sie verwalten zu lassen, k&ouml;nnen Sie dies selbst tun. Auf der<strong></strong> Seite Erweiterte Zuweisung k&ouml;nnen Sie neue Aggregate erstellen, die eine bestimmte Anzahl von Festplatten enthalten, einem vorhandenen Aggregat Festplatten hinzuf&uuml;gen und Volumes in bestimmten Aggregaten erstellen.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="capacity-management">Kapazit&auml;tsmanagement</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Der Cloud Manager Admin kann w&auml;hlen, ob Cloud Manager Sie &uuml;ber Entscheidungen zur Storage-Kapazit&auml;t benachrichtigt oder ob Cloud Manager automatisch die Kapazit&auml;tsanforderungen f&uuml;r Sie managt. Es k&ouml;nnte Ihnen dabei helfen, die Funktionsweise dieser Modi zu verstehen.</p>
+</div>
+<div class="sect2">
+<h3 id="automatic-capacity-management">Automatisches Kapazit&auml;tsmanagement</h3>
+<div class="paragraph">
+<p>Wenn der Cloud Manager Admin den Capacity Management-Modus auf &quot;Automatisch&quot; setzt, erwirbt Cloud Manager automatisch neue Festplatten f&uuml;r Cloud Volumes ONTAP Instanzen, wenn mehr Kapazit&auml;t ben&ouml;tigt wird, l&ouml;scht ungenutzte Festplattensammlungen (Aggregate) und verschiebt Volumes nach Bedarf zwischen Aggregaten.</p>
+</div>
+<div class="paragraph">
+<p>Die folgenden Beispiele veranschaulichen die Funktionsweise dieses Modus:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Wenn ein Aggregat mit 5 oder weniger EBS-Festplatten den Kapazit&auml;tsschwellenwert erreicht, kauft Cloud Manager automatisch neue Festplatten f&uuml;r dieses Aggregat, damit Volumes weiter wachsen k&ouml;nnen.</p>
+</li>
+<li>
+<p>Wenn ein Aggregat mit 12 Azure Disks den Kapazit&auml;tsschwellenwert erreicht, verschiebt Cloud Manager automatisch ein Volume von diesem Aggregat in ein Aggregat mit verf&uuml;gbarer Kapazit&auml;t oder in ein neues Aggregat.</p>
+<div class="paragraph">
+<p>Beachten Sie, dass jetzt freier Speicherplatz auf dem urspr&uuml;nglichen Aggregat verf&uuml;gbar ist. Vorhandene Volumes oder neue Volumes k&ouml;nnen diesen Speicherplatz nutzen. Der Speicherplatz kann in diesem Szenario nicht an AWS oder Azure zur&uuml;ckgegeben werden.</p>
+</div>
+</li>
+<li>
+<p>Wenn ein Aggregat mehr als 12 Stunden lang keine Volumes enth&auml;lt, l&ouml;scht Cloud Manager es.</p>
+</li>
+</ul>
+</div>
+</div>
+<div class="sect2">
+<h3 id="manual-capacity-management">Manuelles Kapazit&auml;tsmanagement</h3>
+<div class="paragraph">
+<p>Wenn der Cloud Manager Admin den Capacity Management-Modus auf &quot;Manuell&quot; setzt, zeigt Cloud Manager bei Kapazit&auml;tsentscheidungen Meldungen mit dem Status &quot;Aktion erforderlich&quot; an. Die gleichen Beispiele, die im automatischen Modus beschrieben werden, gelten f&uuml;r den manuellen Modus, aber Sie m&uuml;ssen die Aktionen akzeptieren.</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="storage-isolation-using-tenants">Storage-Isolierung mithilfe von Mandanten</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Mit Cloud Manager k&ouml;nnen Sie Storage in isolierten Gruppen, so genannten Mandanten, bereitstellen und managen. Sie m&uuml;ssen entscheiden, wie Cloud Manager-Benutzer und ihre Arbeitsumgebungen &uuml;ber Mandanten hinweg organisiert werden.</p>
+</div>
+<div class="sect2">
+<h3 id="working-environments">Arbeitsumgebungen</h3>
+<div class="paragraph">
+<p>Cloud Manager repr&auml;sentiert Storage-Systeme als<em> Arbeitsumgebungen</em> . Eine Arbeitsumgebung hat folgende Eigenschaften:</p>
+</div>
+<div class="ulist">
+<ul>
+<li>
+<p>Ein einzelnes Cloud Volumes ONTAP System oder ein HA-Paar</p>
+</li>
+<li>
+<p>Ein On-Premises ONTAP Cluster in Ihrem Netzwerk</p>
+</li>
+<li>
+<p>Ein ONTAP Cluster in einer NetApp Private Storage-Konfiguration</p>
+</li>
+</ul>
+</div>
+<div class="paragraph">
+<p>Das folgende Bild zeigt eine Cloud Volumes ONTAP Arbeitsumgebung:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot_working_env.gif" alt="Screenshot: Eine Cloud Volumes ONTAP Arbeitsumgebung, die Cloud Volumes ONTAP Storage zeigt."></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="tenants">Mandanten</h3>
+<div class="paragraph">
+<p><em>Ein Mandant</em> isoliert Arbeitsumgebungen in Gruppen. Sie erstellen eine oder mehrere Arbeitsumgebungen innerhalb eines Mandanten. Das folgende Bild zeigt drei Mandanten, die in Cloud Manager definiert sind:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/screenshot_tenants.gif" alt="Screenshot: Die Seite Mandanten, auf der drei definierte Mandanten angezeigt werden."></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="user-management-of-tenants-and-working-environments">Benutzerverwaltung von Mandanten und Arbeitsumgebungen</h3>
+<div class="paragraph">
+<p>Die Mandanten und Arbeitsumgebungen, die Cloud Manager-Benutzer managen k&ouml;nnen, h&auml;ngen von der Benutzerrolle und den Zuweisungen ab. Die drei unterschiedlichen Benutzerrollen sind:</p>
+</div>
+<div class="dlist">
+<dl>
+<dt class="hdlist1">Cloud Manager Admin</dt>
+<dd>
+<p>Verwaltet das Produkt und kann auf alle Mandanten und Arbeitsumgebungen zugreifen.</p>
+</dd>
+<dt class="hdlist1">Mandantenverwaltung</dt>
+<dd>
+<p>Verwaltet einen einzelnen Mandanten. Kann alle Arbeitsumgebungen und Benutzer im Mandanten erstellen und verwalten.</p>
+</dd>
+<dt class="hdlist1">Administrator der Arbeitsumgebung</dt>
+<dd>
+<p>Kann eine oder mehrere Arbeitsumgebungen in einem Mandanten erstellen und managen.</p>
+</dd>
+</dl>
+</div>
+</div>
+<div class="sect2">
+<h3 id="example-of-how-you-can-create-tenants-and-users">Beispiel f&uuml;r das Erstellen von Mandanten und Benutzern</h3>
+<div class="paragraph">
+<p>Wenn Ihr Unternehmen Abteilungen hat, die unabh&auml;ngig voneinander arbeiten, ist es am besten, einen Mandanten f&uuml;r jede Abteilung zu haben.</p>
+</div>
+<div class="paragraph">
+<p>Sie k&ouml;nnen beispielsweise drei Mandanten f&uuml;r drei separate Abteilungen erstellen. Anschlie&szlig;end erstellen Sie f&uuml;r jeden Mandanten einen Tenant Admin. Innerhalb jedes Mandanten w&auml;ren ein oder mehrere Working Environment Admins, die Arbeitsumgebungen managen. Das folgende Bild zeigt dieses Szenario:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/diagram_users_and_tenants.png" alt="Diese Abbildung zeigt einen Cloud Manager Admin, drei Tenant Admins und drei Mandanten, die mehrere Arbeitsumgebungen und die Administratoren der Arbeitsumgebung umfassen, die diese managen."></span></p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="why-you-should-link-a-tenant-to-your-netapp-support-site-account">Warum sollten Sie einen Mandanten mit Ihrem NetApp Support Site-Konto verkn&uuml;pfen</h3>
+<div class="paragraph">
+<p>Cloud Manager fordert Sie auf, die Anmeldedaten der NetApp Support Site f&uuml;r einen Mandanten einzugeben, da sie die Anmeldedaten zum Managen von Lizenzen f&uuml;r Cloud Volumes ONTAP Byol Systeme, zur Registrierung von nutzungsbasierten Instanzen f&uuml;r den Support und zum Upgrade der Cloud Volumes ONTAP Software verwendet.</p>
+</div>
+<div class="paragraph">
+<p>Sehen Sie sich das folgende Video an, um weitere Informationen &uuml;ber die Bereitstellung Ihrer NetApp Support Site Zugangsdaten f&uuml;r Cloud Manager zu erhalten.</p>
+</div>
+<div class="videoblock">
+<div class="content"><iframe width="848" height="480" src="https://www.youtube.com/embed/_8s16fS_L1Y?rel=0" frameborder="0" allowfullscreen></iframe></div>
+</div>
+<div class="paragraph">
+<p>Detaillierte Anweisungen und Anforderungen f&uuml;r NetApp Support Site-Konten finden Sie unter<a href="task_setting_up_cloud_manager.html#linking-tenants-to-a-netapp-support-site-account"> Verkn&uuml;pfen von Mandanten mit einem NetApp Support Site-Konto</a> .</p>
+</div>
+<div class="paragraph">
+<p>Weitere Informationen zum Verwalten von Lizenzdateien in Cloud Manager finden Sie unter<a href="concept_licensing.html"> Lizenzierung</a> .</p>
+</div>
+</div>
+</div>
+</div>
+<div class="sect1">
+<h2 id="simplified-storage-management-using-the-volume-view">Vereinfachtes Storage-Management mit der Volume-Ansicht</h2>
+<div class="sectionbody">
+<div class="paragraph">
+<p>Cloud Manager bietet eine separate Managementansicht mit dem Namen<em> Volume View</em> , die das Storage-Management in AWS weiter vereinfacht.</p>
+</div>
+<div class="paragraph">
+<p>Mit der Volume-Ansicht k&ouml;nnen Sie einfach die NFS-Volumes angeben, die Sie in AWS ben&ouml;tigen, und dann erledigt Cloud Manager den Rest: Cloud Volumes ONTAP Systeme werden nach Bedarf bereitgestellt, und die Kapazit&auml;tszuweisung wird bei wachsenden Volumes entschieden. Diese Ansicht bietet Ihnen die Vorteile von Storage der Enterprise-Klasse in der Cloud mit sehr geringem Storage-Management.</p>
+</div>
+<div class="paragraph">
+<p>Die folgende Abbildung zeigt die Interaktion mit Cloud Manager in der Volume-Ansicht:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/diagram_volume_view_overview.png" alt="Dies ist ein konzeptionelles Bild der Funktionsweise der Volume-Ansicht. Es gibt vier Callouts. Die Nummer 1 zeigt auf Volumes. Die 2 Punkte beziehen sich auf Cloud Volumes ONTAP Storage-Systeme und den zugrunde liegenden EBS Storage. 3 Punkte f&uuml;r Volumes, die Hosts zur Verf&uuml;gung stehen. 4 Punkte f&uuml;r Cloud Volumes ONTAP Systeme und den zugrunde liegenden Storage"></span></p>
+</div>
+<div class="olist arabic">
+<ol class="arabic">
+<li>
+<p>Sie erstellen NFS-Volumes.</p>
+</li>
+<li>
+<p>Cloud Manager startet Cloud Volumes ONTAP Instanzen in AWS f&uuml;r neue Volumes oder erstellt Volumes auf vorhandenen Instanzen. Dar&uuml;ber hinaus wird physischer EBS Storage f&uuml;r die Volumes erworben.</p>
+</li>
+<li>
+<p>Sie stellen die Volumes Ihren Hosts und Applikationen zur Verf&uuml;gung.</p>
+</li>
+<li>
+<p>Cloud Manager trifft Entscheidungen zur Kapazit&auml;tszuweisung, wenn Ihre Volumes wachsen.</p>
+<div class="paragraph">
+<p>Das bedeutet, dass Sie lediglich mit Volumes (das Bild links) interagieren m&uuml;ssen, w&auml;hrend Cloud Manager mit dem Speichersystem und dem zugrunde liegenden Storage (das Bild rechts) interagiert.</p>
+</div>
+</li>
+</ol>
+</div>
+<div class="sect2">
+<h3 id="allocation-of-cloud-resources-for-the-initial-volume">Zuweisung von Cloud-Ressourcen f&uuml;r das anf&auml;ngliche Volume</h3>
+<div class="paragraph">
+<p>Wenn Sie Ihr erstes Volume erstellen, startet Cloud Manager eine Cloud Volumes ONTAP Instanz oder ein Cloud Volumes ONTAP HA Paar in AWS und kauft Amazon EBS Storage f&uuml;r das Volume:</p>
+</div>
+<div class="paragraph">
+<p><span class="image"><img src="./media/diagram_volume_view_resources.png" alt="Dieses konzeptionelle Image zeigt die AWS-Ressourcen, die Cloud Manager f&uuml;r das anf&auml;ngliche Volume erstellt: Eine Cloud Volumes ONTAP Instanz, die &uuml;ber einen Instanztyp von m4.XLarge oder m4.2xlarge und ein bis vier mit EBS verschl&uuml;sselte Festplatten mit einem Terabyte verf&uuml;gt."></span></p>
+</div>
+<div class="paragraph">
+<p>Die Gr&ouml;&szlig;e des initialen Volumes bestimmt den EC2-Instanztyp und die Anzahl der EBS-Festplatten.</p>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon"><i class="fa icon-note" title="Hinweis"></i></td>
+<td class="content">Cloud Manager startet eine Cloud Volumes ONTAP Explore- oder Standardinstanz, je nach anf&auml;nglicher Volume-Gr&ouml;&szlig;e. Wenn die Volumes wachsen, werden Sie m&ouml;glicherweise von Cloud Manager aufgefordert, eine AWS-Instanz&auml;nderung vorzunehmen. Dies bedeutet, dass die Lizenz der Instanz auf Standard oder Premium aktualisiert werden muss. Durch ein Upgrade wird die EBS-Rohkapazit&auml;tsgrenze erh&ouml;ht, sodass Ihre Volumes wachsen k&ouml;nnen.</td>
+</tr>
+</table>
+</div>
+<div class="admonitionblock note">
+<table>
+<tr>
+<td class="icon"><i class="fa icon-note" title="Hinweis"></i></td>
+<td class="content">Cloud Manager startet Cloud Volumes ONTAP Byol Instanzen nicht in der Volume View. Sie sollten Cloud Manager in der Storage System View verwenden, wenn Sie eine Cloud Volumes ONTAP Lizenz erworben haben.</td>
+</tr>
+</table>
+</div>
+</div>
+<div class="sect2">
+<h3 id="allocation-of-cloud-resources-for-additional-volumes">Zuweisung von Cloud-Ressourcen f&uuml;r zus&auml;tzliche Volumes</h3>
+<div class="paragraph">
+<p>Wenn Sie zus&auml;tzliche Volumes erstellen, erstellt Cloud Manager die Volumes auf vorhandenen Cloud Volumes ONTAP Instanzen oder auf neuen Cloud Volumes ONTAP Instanzen. Cloud Manager kann ein Volume auf einer vorhandenen Instanz erstellen, wenn der AWS-Speicherort und der Festplattentyp der Instanz mit dem angeforderten Volume &uuml;bereinstimmen und gen&uuml;gend Speicherplatz vorhanden ist.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="netapp-storage-efficiency-features-and-storage-costs">NetApp Storage-Effizienzfunktionen und Storage-Kosten</h3>
+<div class="paragraph">
+<p>Cloud Manager aktiviert automatisch NetApp Storage-Effizienzfunktionen auf allen Volumes. Durch diese Effizienzsteigerungen k&ouml;nnen Sie die ben&ouml;tigte Storage-Gesamtmenge reduzieren. M&ouml;glicherweise unterscheiden sich Ihre zugewiesene Kapazit&auml;t und die erworbene AWS-Kapazit&auml;t, was zu Einsparungen bei den Storage-Kosten f&uuml;hren kann.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="capacity-allocation-decisions-that-cloud-manager-automatically-handles">Entscheidungen zur Kapazit&auml;tszuweisung, die Cloud Manager automatisch &uuml;bernimmt</h3>
+<div class="ulist">
+<ul>
+<li>
+<p>Cloud Manager erwirbt zus&auml;tzliche EBS-Festplatten, wenn Kapazit&auml;tsschwellenwerte &uuml;berschritten werden. Dies geschieht, wenn Ihre Volumes wachsen.</p>
+</li>
+<li>
+<p>Cloud Manager l&ouml;scht ungenutzte S&auml;tze von EBS-Festplatten, wenn die Festplatten 12 Stunden lang keine Volumes enthalten.</p>
+</li>
+<li>
+<p>Cloud Manager verschiebt Volumes zwischen Festplattens&auml;tzen, um Kapazit&auml;tsprobleme zu vermeiden.</p>
+<div class="paragraph">
+<p>In einigen F&auml;llen ist der Erwerb zus&auml;tzlicher EBS-Festplatten erforderlich. Au&szlig;erdem wird Speicherplatz auf dem urspr&uuml;nglichen Satz von Festplatten f&uuml;r neue und vorhandene Volumes freigegeben.</p>
+</div>
+</li>
+</ul>
+</div>
+</div>
+</div>
+</div>
+
+    </article><!-- Page Container --></div><!-- Start Page Toolbar --><div class="page-nav-toolbar">
+    <div class="page-nav-contribute"  >
+      <div class="page-nav-contribute-title">Beitragen</div><a target="_blank" href="https://github.com/NetAppDocs/occm35/blob/master/concept_storage_management.adoc" class="btn btn-default githubEditButton" role="button"><img src="/occm35/de-de/images/github.png" class="github-icon" />Im GitHub</a><a target="_blank" href="https://github.com/NetAppDocs/occm35/issues/new?body=Page%3A%20[Storage management](https://docs.netapp.com/de-de/occm35/concept_storage_management.html)" class="btn btn-default githubEditButton" role="button"><img src="/occm35/de-de/images/github.png" class="github-icon" /> Request Dokument bearbeiten &auml;ndert den</a><a target="_blank" href="https://docs.netapp.com/us-en/contribute/" class="page-nav-contribute-link"  > Leitfaden des Beitragenden </a></div>
+    <div class="page-nav-container">
+      <nav class="page-nav-fixed">
+        <div class="page-nav-title">Auf DIESER SEITE</div>
+        <div class="page-nav-links">
+          <ul class="page-nav-inner" id="page-menu"></ul>
+        </div>
+      </nav>
+    </div>
+  </div>
+  
+  <div style="clear: both"></div><!-- Main needs to have height --></div>
+
+        </main>
+
+        <footer class="n-footer">
+  <div class="n-footer__bottom">
+    <div class="n-container">
+      <div class="n-footer__bottom-left">
+
+        <div class="n-footer__copyright">
+          <ul class="n-footer__copyright-list">
+            <li class="n-footer__copyright-link"><a href="https://www.netapp.com/us/legal/copyright.aspx">© 2020 NetApp</a></li>
+            <li class="n-footer__language"><!-- <a class="n-footer__corp-link modaal" href="#n-language-selector-menu" data-modaal-scope="modaal_154143812867626e487b1a03c9"> --> <a class="n-footer__corp-link modaal" href="#n-language-selector-menu"><svg class="n-icon-baseline-language" aria-labelledby="title">
+                  <title>NetApp - weltweit</title>
+                  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#globe"></use>
+                </svg>Englisch</a></li>
+
+</ul>
+</div>
+<div class="n-footer__social-links">
+<ul class="n-footer__social-link-list">
+<li class="n-footer__social-link-list-item"><a class="n-footer__social-link" data-ntap-social="follow-blog" href="https://blog.netapp.com" target="_blank" title="Blog" alt="blog"> <span class="n-footer__social-link-text">Blog</span><svg class="n-icon-blog n-footer__social-link-icon" aria-labelledby="title">
+  <title>Blog@</title>
+  <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#blog"></use>
+</svg></a></li>
+<li class="n-footer__social-link-list-item"><a class="n-footer__social-link" data-ntap-social="follow-community" href="https://community.netapp.com/" target="_blank" title="Community" alt="community"> <span class="n-footer__social-link-text">Community</span><svg class="n-icon-community n-footer__social-link-icon" aria-labelledby="title">
+<title>Community@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#comments"></use>
+</svg></a></li>
+<li class="n-footer__social-link-list-item"><a class="n-footer__social-link" data-ntap-social="follow-twitter" href="https://twitter.com/netapp" target="_blank" title="Twitter" alt="twitter"> <span class="n-footer__social-link-text">Twitter</span><svg class="n-icon-twitter n-footer__social-link-icon" aria-labelledby="title">
+<title>Twitter@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#twitter"></use>
+</svg></a></li>
+<li class="n-footer__social-link-list-item"><a class="n-footer__social-link" data-ntap-social="follow-facebook" href="https://www.facebook.com/NetApp" target="_blank" title="Facebook" alt="facebook"> <span class="n-footer__social-link-text">Facebook</span><svg class="n-icon-facebook n-footer__social-link-icon" aria-labelledby="title">
+<title>Facebook@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#facebook"></use>
+</svg></a></li>
+<li class="n-footer__social-link-list-item"><a class="n-footer__social-link" data-ntap-social="follow-linkedin" href="https://www.linkedin.com/company/netapp" target="_blank" title="LinkedIn" alt="linkedin"> <span class="n-footer__social-link-text">LinkedIn</span><svg class="n-icon-linkedin n-footer__social-link-icon" aria-labelledby="title">
+<title>LinkedIn@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#linkedin"></use>
+</svg></a></li>
+<li class="n-footer__social-link-list-item"><a class="n-footer__social-link" data-ntap-social="follow-youtube" href="https://www.youtube.com/user/NetAppTV" target="_blank" title="YouTube" alt="youtube"> <span class="n-footer__social-link-text">YouTube</span><svg class="n-icon-youtube n-footer__social-link-icon" aria-labelledby="title">
+<title>YouTube@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#youtube"></use>
+</svg></a></li>
+<li class="n-footer__social-link-list-item"><a class="n-footer__social-link" data-ntap-social="follow-slideshare" href="https://www.slideshare.net/NetApp" target="_blank" title="SlideShare" alt="slideshare"> <span class="n-footer__social-link-text">SlideShare</span><svg class="n-icon-slideshare n-footer__social-link-icon" aria-labelledby="title">
+<title>SlideShare@</title>
+<use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="/occm35/de-de/common/svg/sprite.svg#slideshare"></use>
+</svg></a></li>
+</ul>
+</div>
+
+</div>
+<div class="n-footer__bottom-right">
+  <p class="n-footer__fine-print">Haben Sie Feedback zu unserer Website? <a target="_self" href="javascript:netapp_mailto()" class="n-footer__copyright">Informieren Sie uns</a><a href="https://docs.netapp.com/de-de/announcements/" class="n-footer__copyright"> &uuml;ber Ank&uuml;ndigungen </a></p>
+</div>
+</div>
+</div>
+</footer>
+
+      </div><!-- Elasticsearch JS --><script type="text/javascript" src='/occm35/de-de/js/bundle.js'></script><!-- Syntax Highlighting --><script type="text/javascript" src='/occm35/de-de/js/prism.js'></script>
+      <script type="text/javascript" src='/occm35/de-de/js/prism-curl.js'></script>
+    </div>
+    <script>
+      document.body.offsetWidth=1903;
+      cookieLaw = {}
+      cookieLaw.euCountry = "US";
+      cookieLaw.invoke = function(){return false;}
+    </script>
+    <script src='/occm35/de-de/js/www-ntap.js'></script>
+  </body>
+
+  
+</html>

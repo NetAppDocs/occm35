@@ -33,12 +33,6 @@ OnCommand Cloud Manager enables you to deploy and manage NetApp Cloud Volumes ON
 
 link:api.html[OnCommand Cloud Manager API Developer Guide^]
 
-== Learn about Cloud Manager and Cloud Volumes ONTAP
-
-video::9I5QToO6ZpU[youtube, width=848, height=480]
-
-https://www.youtube.com/playlist?list=PLdXI3bZJEw7lnoRo8FBKsX1zHbK8AQOoT[Watch additional videos^]
-
 == Connect with peers, get help, and find more information
 
 * http://community.netapp.com/hybrid-cloud[NetApp Community: Hybrid Cloud^]
